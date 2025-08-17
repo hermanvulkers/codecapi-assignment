@@ -14,4 +14,4 @@ const customJestConfig = {
   moduleDirectories: ['node_modules', '<rootDir>/'],
 };
 
-module.exports = createJestConfig(customJestConfig);
+export default createJestConfig(customJestConfig);
