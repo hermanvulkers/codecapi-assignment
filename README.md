@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather App - CodeCapi Opdracht
 
-## Getting Started
+## Overzicht
 
-First, run the development server:
+Een eenvoudige weather app gebouwd met Next.js 15, TypeScript en de Open-Meteo API. De applicatie toont actuele weersinformatie en een 7-daagse verwachting voor steden wereldwijd.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Technische Stack
+
+- **Framework**: Next.js 15 met App router
+- **Taal**: TypeScript met strict mode
+- **Styling**: CSS Modules met CSS Variables
+- **API**: Open-Meteo (weerinformatie & geocoding)
+- **Testing**: Jest & React Testing Library
+
+## Architecturale Beslissingen
+
+### Server Components
+
+Gebruik van React Server Components vanwege de performance en kleinere bundle size. De opdracht vroeg ook om SSR te gebruiken.
+
+### Error Handling
+
+Om eventuele API errors op te vangen heb ik een eenvoudige op root niveau error boundary toegevoegd via de `error.tsx` files van de App Router van Next. Specifiekere error handling mogelijk door ze op page niveau op te vangen.
+
+### Loading
+
+Loading state spinners zijn geïmplementeerd met `loading.tsx` bestanden, voor consistente en visueel aangename transities. Of het echt nodig is met deze korte laadtijden is de vraag. In ieder geval vind ik een spinner met deze laadtijden prettiger dan skeletons die visueel teveel drukte/flickering zouden geven. Laadtijden zouden in Next verder reduceerd kunnen worden door de bijv. de Links te prefetchen.
+
+### CSS Variables
+
+Kleuren heb ik gecentraliseerd in CSS variables (`variables.css`) voor betere onderhoudbaarheid en consistentie. Omwille van de scope en tijd beperkt tot de kleuren.
+
+### Card Component met Composition Pattern
+
+De Card component is gebouwd met het composition pattern waar ik in grotere codebases graag gebruik van maak en even wilde laten delen.
+
+```tsx
+<Card>
+    <Card.Header>
+        <Card.Title>Titel</Card.Title>
+    </Card.Header>
+    <Card.Content>Inhoud</Card.Content>
+    <Card.Footer>Footer<Card.Footer>
+</Card>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Bewuste Keuzes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### ReactQuery
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Bij een groter project zou ik ReactQuery gebruiken om data fetching en state management te structeren.
 
-## Learn More
+### Accessibility
 
-To learn more about Next.js, take a look at the following resources:
+Accessibility features heb ik aan gedacht, maar bewust niet meegenomen vanwege de scope van de opdracht.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Geen State Management Library
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Ik heb geen Context/Redux/Zustand toegevoegd, omdat ik client-side state niet nodig had. Ik kon uit de voeten met de server components en wilde het niet onnodig toevoegen.
 
-## Deploy on Vercel
+### Type safety
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Om het een beetje behapbaar te houden heb ik voor de API responses type assertion en guards gebruikt. Bij een echt project gaat m'n voorkeur uit naar door de backend gegenereerde types, of liever nog een OpenAPI spec, die als source of truth door zowel de backend en front wordt gebruikt om code te genereren.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Testing
+
+Unit tests zijn met hulp van Cursor toegevoegd voor alle helper functies en hooks.
+
+## Scripts
+
+```bash
+npm run start      # Start development server en open browser automatisch
+npm run dev        # Start development server (zonder browser te openen)
+npm run build      # Build voor productie
+npm run test       # Run unit tests
+npm run lint       # Lint codebase
+npm run typecheck  # TypeScript type checking
+```
+
+### Automatisch Browser Openen
+
+Het `npm run start` commando start de development server en opent automatisch de browser op http://localhost:3000. Ik heb een minimaal scriptje toegevoegd en een aantal extra packages geïnstalleerd:
+
+- `scripts/open-browser.mjs` dat de `open` package gebruikt
+- `wait-on` om te wachten tot de server beschikbaar is
+- `npm-run-all` om beide processen parallel te draaien
+
+## Project Structuur
+
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── location/[slug]/ # Dynamische locatie routes
+│   ├── error.tsx        # Error boundary
+│   ├── loading.tsx      # Loading state
+│   └── variables.css    # CSS variabelen
+├── components/
+│   ├── ui/              # Herbruikbare UI componenten
+│   │   └── Card/        # Composition pattern Card
+│   ├── layout/          # Layout componenten
+│   └── views/           # Page-specifieke views
+├── config/              # Configuratie bestanden
+│   └── api.ts           # API endpoints en settings
+├── helpers/             # App-specifieke utility functies
+├── hooks/               # Custom React hooks
+├── services/            # API services
+└── types/               # TypeScript definities
+```
