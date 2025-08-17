@@ -1,5 +1,7 @@
 # Weather App - CodeCapi Opdracht
 
+Note: ik heb de eerste keer met m'n verkeerde git account gepushed, daarom twee contributors. sonobegit ben ik zelf, maar krijg het niet weg ;)
+
 ## Overzicht
 
 Een eenvoudige weather app gebouwd met Next.js 15, TypeScript en de Open-Meteo API. De applicatie toont actuele weersinformatie en een 7-daagse verwachting voor steden wereldwijd.
