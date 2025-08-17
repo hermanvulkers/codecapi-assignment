@@ -1,0 +1,71 @@
+.container {
+  background: var(--color-white);
+  border-radius: 8px;
+  border: 1px solid var(--color-gray-300);
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--color-gray-900);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--color-gray-50);
+  border-radius: 6px;
+}
+
+.city {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.country {
+  font-size: 0.75rem;
+  color: var(--color-gray-400);
+}
+
+.weather {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.temp {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary-500);
+}
+
+.wind {
+  font-size: 0.8125rem;
+  color: var(--color-gray-500);
+}

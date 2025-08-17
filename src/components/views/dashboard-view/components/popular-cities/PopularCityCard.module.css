@@ -1,0 +1,75 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--color-white);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid var(--color-gray-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+}
+
+.country {
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+}
+
+.emoji {
+  font-size: 2rem;
+}
+
+.details {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.temperature {
+  display: flex;
+  flex-direction: column;
+}
+
+.temp {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.weather {
+  font-size: 0.95rem;
+  color: var(--color-gray-600);
+}
+
+.wind {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--color-gray-700);
+}
+
+.windIcon {
+  font-size: 1rem;
+}
+
+.windSpeed {
+  font-weight: 500;
+}

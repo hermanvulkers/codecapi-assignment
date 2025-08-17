@@ -1,10 +1,10 @@
 'use client';
 
-import { useDebouncedCallback } from '@/hooks/utils/use-debounced-callback';
+import { useDebouncedCallback } from '@/hooks/use-debounced-callback';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import styles from './Search.module.css';
+import styles from './SearchInput.module.css';
 
-export default function Search() {
+export default function SearchInput() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -21,8 +21,8 @@ export default function Search() {
 
   return (
     <input
-      type="text"
-      placeholder="Zoek een stad..."
+      type="search"
+      placeholder="Search for a city..."
       onChange={(e) => handleSearch(e.target.value)}
       defaultValue={searchParams.get('query')?.toString()}
       className={styles.input}

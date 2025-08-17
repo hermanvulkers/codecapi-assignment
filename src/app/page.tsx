@@ -1,34 +1,24 @@
-import CityList from '@/components/CityList';
-import Search from '@/components/Search';
+import DashboardView from '@/components/views/dashboard-view/DashboardView';
 import { getLocations } from '@/services/get-locations';
-import styles from './page.module.css';
+import { getPopularCitiesWithWeather } from '@/services/get-popular-cities-with-weather';
 
 interface PageProps {
   searchParams: Promise<{ query?: string }>;
 }
 
-export default async function Home({ searchParams }: PageProps) {
+export default async function DashboardPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const query = params.query || '';
-  const cities = query ? await getLocations(query) : [];
+
+  const [searchedLocations, popularCitiesWithWeather] = await Promise.all([
+    query ? getLocations(query) : Promise.resolve([]),
+    getPopularCitiesWithWeather(),
+  ]);
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>Weather Dashboard</h1>
-        <p className={styles.description}>
-          Zoek een stad om het weer te bekijken
-        </p>
-
-        <Search />
-
-        {query && (
-          <div className={styles.results}>
-            <h2 className={styles.resultsTitle}>Resultaten voor {query}</h2>
-            <CityList cities={cities} />
-          </div>
-        )}
-      </main>
-    </div>
+    <DashboardView
+      searchedLocations={searchedLocations}
+      popularCitiesWithWeather={popularCitiesWithWeather}
+    />
   );
 }
